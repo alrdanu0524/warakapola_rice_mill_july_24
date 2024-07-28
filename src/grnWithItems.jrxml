@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<!-- Created with iReport - A designer for JasperReports -->
+<!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport
+		 name="product_list"
+		 columnCount="1"
+		 printOrder="Vertical"
+		 orientation="Portrait"
+		 pageWidth="595"
+		 pageHeight="842"
+		 columnWidth="567"
+		 columnSpacing="0"
+		 leftMargin="14"
+		 rightMargin="14"
+		 topMargin="20"
+		 bottomMargin="20"
+		 whenNoDataType="NoPages"
+		 isTitleNewPage="false"
+		 isSummaryNewPage="false">
+	<property name="ireport.scriptlethandling" value="0" />
+	<property name="ireport.encoding" value="UTF-8" />
+	<import value="java.util.*" />
+	<import value="net.sf.jasperreports.engine.*" />
+	<import value="net.sf.jasperreports.engine.data.*" />
+
+	<parameter name="cus_name" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="date1" isForPrompting="false" class="java.lang.String"/>
+	<parameter name="date2" isForPrompting="false" class="java.lang.String"/>
+	<queryString><![CDATA[SELECT
+     grn_details.`grn_no` AS grn_details_grn_no,
+     grn_details.`supplier` AS grn_details_supplier,
+     grn_details.`invo_no` AS grn_details_invo_no,
+     grn_details.`type` AS grn_details_type,
+     grn_details.`grn_tot` AS grn_details_grn_tot,
+     grn_details.`payment` AS grn_details_payment,
+     grn_details.`balance` AS grn_details_balance,
+     grn_details.`date` AS grn_details_date,
+     grn_details.`time` AS grn_details_time,
+     grn_details.`user` AS grn_details_user,
+     grn_item_details.`id` AS grn_item_details_id,
+     grn_item_details.`code` AS grn_item_details_code,
+     grn_item_details.`name` AS grn_item_details_name,
+     grn_item_details.`s_code` AS grn_item_details_s_code,
+     grn_item_details.`brand` AS grn_item_details_brand,
+     grn_item_details.`cost` AS grn_item_details_cost,
+     grn_item_details.`sale` AS grn_item_details_sale,
+     grn_item_details.`mrp` AS grn_item_details_mrp,
+     grn_item_details.`re_order` AS grn_item_details_re_order,
+     grn_item_details.`qty` AS grn_item_details_qty,
+     grn_item_details.`free` AS grn_item_details_free,
+     grn_item_details.`type` AS grn_item_details_type,
+     grn_item_details.`rack` AS grn_item_details_rack,
+     grn_item_details.`sub` AS grn_item_details_sub,
+     grn_item_details.`grn_no` AS grn_item_details_grn_no,
+     grn_item_details.`sinhala_name` AS grn_item_details_sinhala_name,
+     grn_item_details.`exp_date` AS grn_item_details_exp_date
+FROM
+     `grn_details` grn_details INNER JOIN `grn_item_details` grn_item_details ON grn_details.`grn_no` = grn_item_details.`grn_no`
+WHERE
+date between date($P{date1}) and date($P{date2})]]></queryString>
+
+	<field name="grn_details_grn_no" class="java.lang.String"/>
+	<field name="grn_details_supplier" class="java.lang.String"/>
+	<field name="grn_details_invo_no" class="java.lang.String"/>
+	<field name="grn_details_type" class="java.lang.String"/>
+	<field name="grn_details_grn_tot" class="java.lang.Double"/>
+	<field name="grn_details_payment" class="java.lang.Double"/>
+	<field name="grn_details_balance" class="java.lang.Double"/>
+	<field name="grn_details_date" class="java.lang.String"/>
+	<field name="grn_details_time" class="java.lang.String"/>
+	<field name="grn_details_user" class="java.lang.String"/>
+	<field name="grn_item_details_id" class="java.lang.Integer"/>
+	<field name="grn_item_details_code" class="java.lang.String"/>
+	<field name="grn_item_details_name" class="java.lang.String"/>
+	<field name="grn_item_details_s_code" class="java.lang.String"/>
+	<field name="grn_item_details_brand" class="java.lang.String"/>
+	<field name="grn_item_details_cost" class="java.lang.Double"/>
+	<field name="grn_item_details_sale" class="java.lang.Double"/>
+	<field name="grn_item_details_mrp" class="java.lang.Double"/>
+	<field name="grn_item_details_re_order" class="java.lang.Double"/>
+	<field name="grn_item_details_qty" class="java.lang.Double"/>
+	<field name="grn_item_details_free" class="java.lang.Double"/>
+	<field name="grn_item_details_type" class="java.lang.String"/>
+	<field name="grn_item_details_rack" class="java.lang.String"/>
+	<field name="grn_item_details_sub" class="java.lang.Double"/>
+	<field name="grn_item_details_grn_no" class="java.lang.String"/>
+	<field name="grn_item_details_sinhala_name" class="java.lang.String"/>
+	<field name="grn_item_details_exp_date" class="java.lang.String"/>
+
+	<sortField name="grn_details_grn_no" />
+
+	<variable name="full_total" class="java.lang.Double" resetType="Report" calculation="Sum">
+		<variableExpression><![CDATA[$F{grn_details_grn_tot}]]></variableExpression>
+	</variable>
+
+		<group  name="grn_no" >
+			<groupExpression><![CDATA[$F{grn_details_grn_no}]]></groupExpression>
+			<groupHeader>
+			<band height="40"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="20"
+						width="69"
+						height="20"
+						forecolor="#000066"
+						key="staticText-4"/>
+					<box topBorder="1Point" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000066"/>
+					<textElement textAlignment="Left">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Code]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="57"
+						height="20"
+						forecolor="#000066"
+						key="staticText-15"/>
+					<box topBorder="None" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000066"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[GRN No :
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="69"
+						y="20"
+						width="162"
+						height="20"
+						forecolor="#000066"
+						key="staticText-17"/>
+					<box topBorder="1Point" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000066"/>
+					<textElement textAlignment="Left">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Product]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="231"
+						y="20"
+						width="69"
+						height="20"
+						forecolor="#000066"
+						key="staticText-18"/>
+					<box topBorder="1Point" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000066"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Cost]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="369"
+						y="20"
+						width="56"
+						height="20"
+						forecolor="#000066"
+						key="staticText-19"/>
+					<box topBorder="1Point" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000066"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Qty]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="425"
+						y="20"
+						width="56"
+						height="20"
+						forecolor="#000066"
+						key="staticText-20"/>
+					<box topBorder="1Point" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000066"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Free]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="481"
+						y="20"
+						width="86"
+						height="20"
+						forecolor="#000066"
+						key="staticText-21"/>
+					<box topBorder="1Point" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000066"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Sub Total]]></text>
+				</staticText>
+				<staticText>
+					<reportElement
+						x="300"
+						y="20"
+						width="69"
+						height="20"
+						forecolor="#000066"
+						key="staticText-22"/>
+					<box topBorder="1Point" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000066"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[MRP]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="57"
+						y="0"
+						width="96"
+						height="20"
+						forecolor="#000066"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{grn_details_grn_no}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="153"
+						y="0"
+						width="75"
+						height="20"
+						forecolor="#000066"
+						key="staticText-23"/>
+					<box topBorder="None" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000066"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Invoice No :
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="228"
+						y="0"
+						width="78"
+						height="20"
+						forecolor="#000066"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{grn_details_invo_no}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="306"
+						y="0"
+						width="48"
+						height="20"
+						forecolor="#000066"
+						key="staticText-24"/>
+					<box topBorder="None" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000066"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Type  :
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="354"
+						y="0"
+						width="59"
+						height="20"
+						forecolor="#000066"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{grn_details_type}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="413"
+						y="0"
+						width="48"
+						height="20"
+						forecolor="#000066"
+						key="staticText-25"/>
+					<box topBorder="None" topBorderColor="#000066" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000066"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Date  :
+]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="461"
+						y="0"
+						width="106"
+						height="20"
+						forecolor="#000066"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" size="12"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{grn_details_date}]]></textFieldExpression>
+				</textField>
+			</band>
+			</groupHeader>
+			<groupFooter>
+			<band height="32"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="0"
+						width="424"
+						height="20"
+						forecolor="#000066"
+						key="staticText-26"/>
+					<box topBorder="1Point" topBorderColor="#CC0000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000066"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Total :]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="424"
+						y="0"
+						width="143"
+						height="20"
+						forecolor="#000066"
+						key="textField"/>
+					<box topBorder="1Point" topBorderColor="#CC0000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#CC0000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{grn_details_grn_tot}]]></textFieldExpression>
+				</textField>
+				<line direction="TopDown">
+					<reportElement
+						x="424"
+						y="24"
+						width="143"
+						height="0"
+						forecolor="#CC0000"
+						key="line-1"/>
+					<graphicElement stretchType="NoStretch"/>
+				</line>
+			</band>
+			</groupFooter>
+		</group>
+		<background>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</background>
+		<title>
+			<band height="40"  isSplitAllowed="true" >
+				<staticText>
+					<reportElement
+						x="0"
+						y="0"
+						width="327"
+						height="25"
+						forecolor="#009933"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="18" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Goods Received Notes Details - Items]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="dd-MMM-yyyy" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="474"
+						y="0"
+						width="93"
+						height="20"
+						forecolor="#009933"
+						key="textField-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="424"
+						y="0"
+						width="50"
+						height="20"
+						forecolor="#009933"
+						key="staticText-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Date]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" pattern="h.mm a" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="474"
+						y="20"
+						width="93"
+						height="20"
+						forecolor="#009933"
+						key="textField-2"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						x="424"
+						y="20"
+						width="50"
+						height="20"
+						forecolor="#009933"
+						key="staticText-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[Time]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="0"
+						y="22"
+						width="75"
+						height="18"
+						forecolor="#000066"
+						key="textField-3"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{date1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement
+						mode="Opaque"
+						x="75"
+						y="22"
+						width="23"
+						height="18"
+						forecolor="#000066"
+						key="staticText-14"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<text><![CDATA[To]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						mode="Opaque"
+						x="98"
+						y="22"
+						width="100"
+						height="18"
+						forecolor="#000066"
+						key="textField-4"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans" pdfFontName="Helvetica-Bold" size="12" isBold="true"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$P{date2}]]></textFieldExpression>
+				</textField>
+			</band>
+		</title>
+		<pageHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</pageHeader>
+		<columnHeader>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnHeader>
+		<detail>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="369"
+						y="0"
+						width="55"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{grn_item_details_qty}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="481"
+						y="0"
+						width="86"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{grn_item_details_sub}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="231"
+						y="0"
+						width="69"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{grn_item_details_cost}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="#,##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="300"
+						y="0"
+						width="69"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{grn_item_details_mrp}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="69"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font fontName="Product Sans"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{grn_item_details_code}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="69"
+						y="0"
+						width="162"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Product Sans"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA[$F{grn_item_details_name}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="false" pattern="##0.00" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="424"
+						y="0"
+						width="57"
+						height="18"
+						key="textField"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Right">
+						<font fontName="Product Sans"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.Double"><![CDATA[$F{grn_item_details_free}]]></textFieldExpression>
+				</textField>
+			</band>
+		</detail>
+		<columnFooter>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</columnFooter>
+		<pageFooter>
+			<band height="18"  isSplitAllowed="true" >
+				<textField isStretchWithOverflow="false" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="0"
+						y="0"
+						width="567"
+						height="18"
+						forecolor="#FF0000"
+						key="textField"/>
+					<box topBorder="1Point" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Product Sans"/>
+					</textElement>
+				<textFieldExpression   class="java.lang.String"><![CDATA["Page No : "+$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+			</band>
+		</pageFooter>
+		<lastPageFooter>
+			<band height="28"  isSplitAllowed="true" >
+			</band>
+		</lastPageFooter>
+		<summary>
+			<band height="0"  isSplitAllowed="true" >
+			</band>
+		</summary>
+</jasperReport>
